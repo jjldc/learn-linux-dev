@@ -1,1 +1,1 @@
-# This is a Linux learning guide written in Chinese.
+# Linux程序开发指南

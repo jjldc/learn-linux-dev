@@ -1,0 +1,769 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Linux内核基础 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="4.Rootfs_basics.html" />
+    
+    
+    <link rel="prev" href="2.Work_under_console.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="1.Overview.html">
+            
+                <a href="1.Overview.html">
+            
+                    
+                    介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="2.Work_under_console.html">
+            
+                <a href="2.Work_under_console.html">
+            
+                    
+                    用Linux系统命令行工作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4" data-path="3.Kernel_basics.html">
+            
+                <a href="3.Kernel_basics.html">
+            
+                    
+                    Linux内核基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="4.Rootfs_basics.html">
+            
+                <a href="4.Rootfs_basics.html">
+            
+                    
+                    Linux rootfs基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="5.Rootfs_advanced.html">
+            
+                <a href="5.Rootfs_advanced.html">
+            
+                    
+                    Linux rootfs进阶
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="6.Windows_cross_compile.html">
+            
+                <a href="6.Windows_cross_compile.html">
+            
+                    
+                    Windows交叉编译环境
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="7.Start_to_write_apps.html">
+            
+                <a href="7.Start_to_write_apps.html">
+            
+                    
+                    应用程序开发基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" >
+            
+                <span>
+            
+                    
+                    Linux IPC
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" >
+            
+                <span>
+            
+                    
+                    如何利用开源工具解决问题
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" >
+            
+                <span>
+            
+                    
+                    学习一门脚本语言
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" >
+            
+                <span>
+            
+                    
+                    现有Linux装置架构分析
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" >
+            
+                <span>
+            
+                    
+                    一种新的Linux装置架构
+            
+                </span>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Linux内核基础</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="linux&#x7A0B;&#x5E8F;&#x5F00;&#x53D1;&#x6307;&#x5357;---&#x5185;&#x6838;&#x57FA;&#x7840;">Linux&#x7A0B;&#x5E8F;&#x5F00;&#x53D1;&#x6307;&#x5357; - &#x5185;&#x6838;&#x57FA;&#x7840;</h1>
+<ul>
+<li><a href="#linux%e7%a8%8b%e5%ba%8f%e5%bc%80%e5%8f%91%e6%8c%87%e5%8d%97---%e5%86%85%e6%a0%b8%e5%9f%ba%e7%a1%80">Linux&#x7A0B;&#x5E8F;&#x5F00;&#x53D1;&#x6307;&#x5357; - &#x5185;&#x6838;&#x57FA;&#x7840;</a><ul>
+<li><a href="#%e7%9b%ae%e6%a0%87">&#x76EE;&#x6807;</a></li>
+<li><a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99">&#x53C2;&#x8003;&#x8D44;&#x6599;</a></li>
+<li><a href="#%e5%ad%a6%e4%b9%a0%e5%86%85%e5%ae%b9">&#x5B66;&#x4E60;&#x5185;&#x5BB9;</a><ul>
+<li><a href="#%e5%bc%80%e5%8f%91%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae">&#x5F00;&#x53D1;&#x73AF;&#x5883;&#x914D;&#x7F6E;</a><ul>
+<li><a href="#%e5%ae%89%e8%a3%85%e7%bc%96%e8%af%91%e5%b7%a5%e5%85%b7%e5%92%8c%e8%bd%af%e4%bb%b6">&#x5B89;&#x88C5;&#x7F16;&#x8BD1;&#x5DE5;&#x5177;&#x548C;&#x8F6F;&#x4EF6;</a></li>
+<li><a href="#%e9%85%8d%e7%bd%aetftp%e6%9c%8d%e5%8a%a1">&#x914D;&#x7F6E;tftp&#x670D;&#x52A1;</a></li>
+<li><a href="#%e9%85%8d%e7%bd%aenfs-server">&#x914D;&#x7F6E;NFS Server</a></li>
+<li><a href="#%e5%ae%89%e8%a3%85%e4%ba%8c%e8%bf%9b%e5%88%b6%e6%96%87%e4%bb%b6">&#x5B89;&#x88C5;&#x4E8C;&#x8FDB;&#x5236;&#x6587;&#x4EF6;</a></li>
+<li><a href="#%e5%87%86%e5%a4%87%e5%bc%80%e5%8f%91%e6%9d%bf">&#x51C6;&#x5907;&#x5F00;&#x53D1;&#x677F;</a></li>
+<li><a href="#%e7%ac%ac%e4%b8%80%e6%ac%a1%e5%90%af%e5%8a%a8%e7%b3%bb%e7%bb%9f">&#x7B2C;&#x4E00;&#x6B21;&#x542F;&#x52A8;&#x7CFB;&#x7EDF;</a></li>
+</ul>
+</li>
+<li><a href="#uboot">UBOOT</a></li>
+<li><a href="#%e5%ae%89%e8%a3%85%e4%ba%a4%e5%8f%89%e7%bc%96%e8%af%91%e5%99%a8">&#x5B89;&#x88C5;&#x4EA4;&#x53C9;&#x7F16;&#x8BD1;&#x5668;</a></li>
+<li><a href="#linux%e5%86%85%e6%a0%b8%e7%bc%96%e8%af%91">Linux&#x5185;&#x6838;&#x7F16;&#x8BD1;</a></li>
+</ul>
+</li>
+<li><a href="#%e9%98%b6%e6%ae%b5%e6%b5%8b%e8%af%95">&#x9636;&#x6BB5;&#x6D4B;&#x8BD5;</a><ul>
+<li><a href="#%e7%bb%83%e4%b9%a01%e5%ae%8c%e6%88%90linux%e5%86%85%e6%a0%b8%e7%9a%84%e7%bc%96%e8%af%91%e5%92%8c%e5%90%af%e5%8a%a8">&#x7EC3;&#x4E60;1&#xFF1A;&#x5B8C;&#x6210;Linux&#x5185;&#x6838;&#x7684;&#x7F16;&#x8BD1;&#x548C;&#x542F;&#x52A8;</a></li>
+<li><a href="#%e7%bb%83%e4%b9%a02linux%e5%86%85%e6%a0%b8%e8%a3%81%e5%89%aa">&#x7EC3;&#x4E60;2&#xFF1A;Linux&#x5185;&#x6838;&#x88C1;&#x526A;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="&#x76EE;&#x6807;">&#x76EE;&#x6807;</h2>
+<p>&#x672C;&#x7AE0;&#x8282;&#x901A;&#x8FC7;&#x4E00;&#x7CFB;&#x5217;&#x6848;&#x4F8B;&#xFF0C;&#x4E3A;Linux&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x666E;&#x53CA;&#x57FA;&#x7840;&#x7684;Kernel&#x77E5;&#x8BC6;&#x548C;&#x6982;&#x5FF5;&#xFF0C;&#x4F7F;&#x4E4B;&#x5BF9;Linux&#x7CFB;&#x7EDF;&#x7684;&#x5E95;&#x5C42;&#x539F;&#x7406;&#x548C;&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#x6709;&#x4E2A;&#x5168;&#x5C40;&#x7684;&#x8BA4;&#x8BC6;&#x3002;&#x6709;&#x5229;&#x4E8E;&#x672A;&#x6765;&#x5F00;&#x53D1;&#x9879;&#x76EE;&#x65F6;&#xFF0C;&#x66F4;&#x597D;&#x5730;&#x548C;&#x5185;&#x6838;&#x5F00;&#x53D1;&#x5DE5;&#x7A0B;&#x5E08;&#x8FDB;&#x884C;&#x9AD8;&#x6548;&#x6C9F;&#x901A;&#x3002;</p>
+<h2 id="&#x53C2;&#x8003;&#x8D44;&#x6599;">&#x53C2;&#x8003;&#x8D44;&#x6599;</h2>
+<ul>
+<li><a href="http://software-dl.ti.com/processor-sdk-linux/esd/docs/06_00_00_07/linux/index.html" target="_blank">TI Processor SDK Linux Software Developer&#x2019;s Guide</a></li>
+</ul>
+<h2 id="&#x5B66;&#x4E60;&#x5185;&#x5BB9;">&#x5B66;&#x4E60;&#x5185;&#x5BB9;</h2>
+<h3 id="&#x5F00;&#x53D1;&#x73AF;&#x5883;&#x914D;&#x7F6E;">&#x5F00;&#x53D1;&#x73AF;&#x5883;&#x914D;&#x7F6E;</h3>
+<p>&#x4E0A;&#x4E00;&#x7AE0;&#x6211;&#x4EEC;&#x5728;Ubuntu&#x7CFB;&#x7EDF;&#x4E2D;&#x4F7F;&#x7528;gcc&#x8FDB;&#x884C;&#x4E86;&#x7B2C;&#x4E00;&#x6B21;&#x7A0B;&#x5E8F;&#x7F16;&#x8BD1;&#xFF0C;&#x8FD9;&#x662F;&#x539F;&#x751F;&#x7F16;&#x8BD1;&#xFF08;&#x5373;&#x5728;x86_64&#x4E3B;&#x673A;&#x4E0A;&#x7F16;&#x8BD1;&#x5F00;&#x53D1;x86_64&#x7A0B;&#x5E8F;&#xFF09;&#xFF0C;&#x975E;&#x4EA4;&#x53C9;&#x7F16;&#x8BD1;&#xFF08;&#x5728;x86_64&#x4E3B;&#x673A;&#x4E0A;&#x7F16;&#x8BD1;&#x5F00;&#x53D1;ARM&#x7A0B;&#x5E8F;&#xFF09;&#x3002;&#x5BF9;&#x4E8E;&#x4EA4;&#x53C9;&#x7F16;&#x8BD1;&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x9700;&#x8981;&#x4E13;&#x7528;&#x7684;&#x4EA4;&#x53C9;&#x7F16;&#x8BD1;&#x5668;&#xFF0C;&#x5982;arm-linux-gnueabihf-gcc&#x7B49;&#x3002;&#x540C;&#x65F6;&#x9664;&#x4E86;gcc&#xFF0C;&#x5F00;&#x6E90;&#x8F6F;&#x4EF6;&#x8FD8;&#x4F7F;&#x7528;&#x4E86;&#x5927;&#x91CF;&#x81EA;&#x52A8;&#x5316;&#x5DE5;&#x5177;&#x6765;&#x589E;&#x5F3A;&#x7A0B;&#x5E8F;&#x8DE8;&#x5E73;&#x53F0;&#x7F16;&#x8BD1;&#x7684;&#x80FD;&#x529B;&#xFF0C;&#x6211;&#x4EEC;&#x7F16;&#x8BD1;&#x8FD9;&#x7C7B;&#x8F6F;&#x4EF6;&#x8FD8;&#x9700;&#x8981;&#x989D;&#x5916;&#x7684;&#x5DE5;&#x5177;&#x8F6F;&#x4EF6;&#x3002;<br></p>
+<h4 id="&#x5B89;&#x88C5;&#x7F16;&#x8BD1;&#x5DE5;&#x5177;&#x548C;&#x8F6F;&#x4EF6;">&#x5B89;&#x88C5;&#x7F16;&#x8BD1;&#x5DE5;&#x5177;&#x548C;&#x8F6F;&#x4EF6;</h4>
+<p>&#x9996;&#x5148;&#x5B89;&#x88C5;&#x4E00;&#x4E9B;&#x8C03;&#x8BD5;&#x548C;&#x7F16;&#x8BD1;&#x5185;&#x6838;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x7684;&#x57FA;&#x672C;&#x8F6F;&#x4EF6;&#xFF0C;&#x5305;&#x62EC;&#x7F16;&#x8BD1;&#x5DE5;&#x5177;&#x3001;tftp&#x548C;nfs server&#x7B49;&#x3002;&#x540C;&#x65F6;&#x8FD8;&#x8981;&#x5B89;&#x88C5;SDK&#x6587;&#x4EF6;</p>
+<pre><code class="lang-sh"><span class="hljs-comment"># &#x5B89;&#x88C5;&#x7F16;&#x8BD1;&#x5DE5;&#x5177;</span>
+sudo apt-get install build-essential libtool autotools-dev automake pkg-config zip bison libssl-dev
+sudo apt-get install nfs-server tftpd-hpa
+sudo apt-get libncurses5-dev
+<span class="hljs-comment"># &#x5B89;&#x88C5;TI SDK</span>
+<span class="hljs-comment"># &#x5047;&#x8BBE;&#x5B89;&#x88C5;&#x5305;&#x5728;Windows&#x5BBF;&#x4E3B;&#x673A;&#x7684;D&#x76D8;&#x6839;&#x76EE;&#x5F55;&#xFF0C;&#x6211;&#x4EEC;&#x5728;&#x4E0A;&#x4E00;&#x7AE0;&#x5DF2;&#x7ECF;&#x901A;&#x8FC7;&#x5B89;&#x88C5;VMWare Tools</span>
+<span class="hljs-comment"># &#x628A;D&#x76D8;&#x5171;&#x4EAB;&#x5230;Linux&#x7CFB;&#x7EDF;&#x4E2D;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x8FDB;&#x5165;/mnt/D&#x76EE;&#x5F55;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x8BBF;&#x95EE;&#x5230;&#x6587;&#x4EF6;</span>
+<span class="hljs-built_in">cd</span> /mnt/D
+./ti-processor-sdk-linux-am335x-evm-06.00.00.07-Linux-x86-Install.bin
+<span class="hljs-comment"># &#x6CE8;&#x610F;&#x8FD9;&#x4E2A;&#x5B89;&#x88C5;&#x5305;&#x662F;&#x56FE;&#x5F62;&#x754C;&#x9762;&#xFF0C;&#x901A;&#x8FC7;MobaXterm&#x8F6F;&#x4EF6;&#x53EF;&#x4EE5;&#x91CD;&#x5B9A;&#x5411;X11&#x56FE;&#x5F62;&#x5230;&#x8FDC;&#x7A0B;&#x4E3B;&#x673A;</span>
+<span class="hljs-comment"># &#x8BF7;&#x6CE8;&#x610F;&#x662F;&#x5426;&#x6709;&#x65B0;&#x5F39;&#x51FA;&#x7684;mobaXterm&#x8F6F;&#x4EF6;&#x7A97;&#x53E3;&#xFF0C;&#x627E;&#x5230;&#x5E76;&#x4E0B;&#x4E00;&#x6B65;&#x5B89;&#x88C5;&#x5373;&#x53EF;</span>
+<span class="hljs-comment"># &#x5B89;&#x88C5;&#x76EE;&#x6807;&#x8DEF;&#x5F84;&#x63A8;&#x8350;: /home/&lt;usr&gt;/ti-processor-sdk-.....</span>
+
+<span class="hljs-comment"># &#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x56E0;&#x4E3A;sdk&#x7684;&#x8DEF;&#x5F84;&#x540D;&#x5F88;&#x957F;&#xFF0C;&#x6211;&#x4EEC;&#x505A;&#x4E00;&#x4E2A;&#x7B26;&#x53F7;&#x94FE;&#x63A5;&#xFF0C;&#x7B80;&#x5316;&#x540E;&#x7EED;&#x8DEF;&#x5F84;&#x8F93;&#x5165;</span>
+<span class="hljs-comment"># &#x5C06;sdk&#x5B89;&#x88C5;&#x76EE;&#x5F55;&#x94FE;&#x63A5;&#x5230;~/sdk</span>
+<span class="hljs-built_in">cd</span> ~
+ln <span class="hljs-_">-s</span> ti-processor-sdk-linux-am335x-evm-06.00.00.07/ ~/sdk
+ls <span class="hljs-_">-l</span>
+<span class="hljs-comment"># &#x53EF;&#x4EE5;&#x770B;&#x5230;sdk&#x76EE;&#x5F55;&#x6307;&#x5411;&#x771F;&#x6B63;&#x7684;sdk&#x6839;&#x76EE;&#x5F55;</span>
+total 20
+drwxrwxr-x 3 cet cet 4096 Aug  1 08:39 c-test
+lrwxrwxrwx 1 cet cet   46 Aug  2 03:05 sdk -&gt; ti-processor-sdk-linux-am335x-evm-06.00.00.07/
+drwxrwxr-x 2 cet cet 4096 Aug  2 02:14 tftpboot
+drwxrwxr-x 8 cet cet 4096 Aug  2 02:24 ti-processor-sdk-linux-am335x-evm-06.00.00.07
+</code></pre>
+<h4 id="&#x914D;&#x7F6E;tftp&#x670D;&#x52A1;">&#x914D;&#x7F6E;tftp&#x670D;&#x52A1;</h4>
+<pre><code class="lang-sh"><span class="hljs-comment"># &#x5B89;&#x88C5;&#x914D;&#x7F6E;tftp</span>
+mkdir ~/tftpboot    <span class="hljs-comment">#&#x521B;&#x5EFA;tftp&#x6839;&#x76EE;&#x5F55;</span>
+sudo vi /etc/default/tftpd-hpa
+</code></pre>
+<p>&#x4FEE;&#x6539;<code>/etc/default/tftpd-hpa</code>&#x7684;&#x914D;&#x7F6E;</p>
+<pre><code class="lang-sh"><span class="hljs-comment"># /etc/default/tftpd-hpa</span>
+
+TFTP_USERNAME=<span class="hljs-string">&quot;cet&quot;</span> <span class="hljs-comment">#&#x8FD9;&#x91CC;&#x5199;&#x7528;&#x6237;&#x540D;</span>
+TFTP_DIRECTORY=<span class="hljs-string">&quot;/home/cet/tftpboot&quot;</span> <span class="hljs-comment">#tftp&#x6839;&#x76EE;&#x5F55;</span>
+TFTP_ADDRESS=<span class="hljs-string">&quot;0.0.0.0:69&quot;</span>
+TFTP_OPTIONS=<span class="hljs-string">&quot;-l -s&quot;</span>
+</code></pre>
+<p>&#x4FEE;&#x6539;&#x5B8C;&#x540E;&#xFF0C;&#x91CD;&#x542F;tftp&#x670D;&#x52A1;</p>
+<pre><code class="lang-sh"><span class="hljs-comment"># &#x91CD;&#x542F;tftp</span>
+sudo service tftpd-hpa restart
+<span class="hljs-comment"># &#x68C0;&#x67E5;&#x670D;&#x52A1;&#x662F;&#x5426;&#x5F00;&#x542F;</span>
+pa -aux | grep tftp
+netstat -anu | grep :69
+</code></pre>
+<h4 id="&#x914D;&#x7F6E;nfs-server">&#x914D;&#x7F6E;NFS Server</h4>
+<p>NFS&#x662F;&#x7F51;&#x7EDC;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#xFF0C;&#x7528;&#x4E8E;Linux&#x7CFB;&#x7EDF;&#x542F;&#x52A8;&#x540E;&#x6302;&#x8F7D;ROOTFS&#xFF0C;&#x5173;&#x4E8E;ROOTFS&#x7684;&#x6982;&#x5FF5;&#x5728;&#x4E0B;&#x6587;&#x4ECB;&#x7ECD;&#x3002;&#x8FD9;&#x91CC;&#x53EA;&#x9700;&#x8981;&#x5148;&#x7167;&#x505A;&#x3002;</p>
+<p>&#x89E3;&#x538B;&#x548C;&#x51C6;&#x5907;rootfs</p>
+<pre><code class="lang-sh"><span class="hljs-comment"># &#x8FDB;&#x5165;SDK&#x76EE;&#x5F55;&#x4E0B;&#x7684;filesystem&#x76EE;&#x5F55;</span>
+<span class="hljs-built_in">cd</span> ~/sdk/filesystem
+
+<span class="hljs-comment"># &#x89E3;&#x538B;&#x4E00;&#x4E2A;&#x5178;&#x578B;&#x7684;rootfs</span>
+mkdir rootfs-arago
+tar xJvf arago-base-tisdk-image-am335x-evm.tar.xz -C rootfs-arago/
+
+<span class="hljs-comment"># &#x5C06;&#x521A;&#x89E3;&#x538B;&#x7684;rootfs&#x505A;&#x4E00;&#x4E2A;&#x7B26;&#x53F7;&#x94FE;&#x63A5;&#x5230;~/rootfs&#x76EE;&#x5F55;</span>
+<span class="hljs-built_in">cd</span> ~
+ln <span class="hljs-_">-s</span> sdk/filesystem/rootfs-arago/ rootfs
+</code></pre>
+<p>&#x4FEE;&#x6539;NFS Server&#x914D;&#x7F6E;</p>
+<pre><code class="lang-sh">sudo vi /etc/exports
+
+<span class="hljs-comment"># &#x5728;&#x6587;&#x4EF6;&#x672B;&#x5C3E;&#x6DFB;&#x52A0;&#x4E00;&#x884C;&#xFF1A;</span>
+/home/cet/rootfs  *(rw,sync,no_subtree_check,no_root_squash)
+
+<span class="hljs-comment"># :wq&#x4FDD;&#x5B58;&#x9000;&#x51FA;&#x6587;&#x4EF6;&#x540E;&#xFF0C;&#x66F4;&#x65B0;NFS Server</span>
+sudo exportfs -r
+<span class="hljs-comment"># &#x67E5;&#x770B;rootfs&#x76EE;&#x5F55;&#x662F;&#x5426;&#x5DF2;&#x7ECF;&#x5171;&#x4EAB;</span>
+showmount --exports
+</code></pre>
+<h4 id="&#x5B89;&#x88C5;&#x4E8C;&#x8FDB;&#x5236;&#x6587;&#x4EF6;">&#x5B89;&#x88C5;&#x4E8C;&#x8FDB;&#x5236;&#x6587;&#x4EF6;</h4>
+<p>SDK&#x53D1;&#x5E03;&#x65F6;&#x9644;&#x5E26;&#x4E86;&#x4E00;&#x5957;&#x9884;&#x7F16;&#x8BD1;&#x597D;&#x7684;Linux&#x5185;&#x6838;&#xFF0C;&#x53EF;&#x4EE5;&#x7528;&#x4E8E;&#x6211;&#x4EEC;&#x6D4B;&#x8BD5;&#x4E0A;&#x9762;&#x914D;&#x7F6E;&#x7684;tftp&#x548C;NFS&#x662F;&#x5426;&#x6B63;&#x786E;&#x3002;</p>
+<pre><code class="lang-sh"><span class="hljs-built_in">cd</span> ~/sdk/board-support/prebuilt-images
+<span class="hljs-comment"># &#x5B89;&#x88C5;Linux&#x5185;&#x6838;&#x5230;tftp&#x6839;&#x76EE;&#x5F55;&#xFF0C;&#x5E76;&#x91CD;&#x547D;&#x540D;&#x4E3A;zImage&#x4E0D;&#x5E26;&#x540E;&#x7F00;</span>
+cp zImage-am335x-evm.bin ~/tftpboot/zImage
+<span class="hljs-comment"># &#x5B89;&#x88C5;dtb&#x8BBE;&#x5907;&#x63CF;&#x8FF0;&#x6587;&#x4EF6;&#x5230;tftp&#x6839;&#x76EE;&#x5F55;</span>
+cp am335x-boneblack.dtb ~/tftpboot/
+<span class="hljs-comment"># &#x68C0;&#x67E5;&#x7ED3;&#x679C;</span>
+ls ~/tftpboot
+</code></pre>
+<h4 id="&#x51C6;&#x5907;&#x5F00;&#x53D1;&#x677F;">&#x51C6;&#x5907;&#x5F00;&#x53D1;&#x677F;</h4>
+<p>&#x6211;&#x4EEC;&#x7EDF;&#x4E00;&#x9009;&#x7528;&#x5F00;&#x6E90;&#x793E;&#x533A;&#x5F00;&#x53D1;&#x8BBE;&#x8BA1;&#x7684;AM335x&#x5F00;&#x53D1;&#x677F;&#xFF1A;Beagle Bone Black&#xFF08;&#x7B80;&#x79F0;BBB&#xFF09;&#x4F5C;&#x4E3A;&#x6211;&#x4EEC;&#x7684;&#x8C03;&#x8BD5;&#x76EE;&#x6807;&#xFF0C;&#x8FD9;&#x4E2A;&#x5F00;&#x53D1;&#x677F;&#x5728;&#x672A;&#x6765;&#x5B66;&#x4E60;Linux&#x5F00;&#x53D1;&#x4F1A;&#x6301;&#x7EED;&#x7528;&#x5230;&#x3002;</p>
+<p>&#x5F00;&#x53D1;&#x677F;&#x5B98;&#x7F51;&#xFF1A;<code>http://beagleboard.org/Products/BeagleBone+Black</code></p>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;&#x7F51;&#x7AD9;&#x4E0A;&#x627E;&#x5230;&#x786C;&#x4EF6;&#x7684;&#x539F;&#x7406;&#x56FE;&#x3001;PCB&#x53CA;&#x4E00;&#x4E9B;&#x4EE3;&#x7801;&#x3002;&#x8BF7;&#x6CE8;&#x610F;&#x4E00;&#x70B9;&#xFF1A;&#x5F00;&#x6E90;&#x793E;&#x533A;&#x5F00;&#x53D1;&#x7684;Linux&#x5185;&#x6838;&#x4E0E;&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x7684;TI&#x5B98;&#x65B9;&#x7684;AM335x SDK&#x4E0D;&#x662F;&#x4E00;&#x5957;&#x4EE3;&#x7801;&#xFF0C;&#x5F00;&#x6E90;&#x793E;&#x533A;&#x4E3A;&#x4E86;&#x5C06;&#x5F00;&#x53D1;&#x677F;&#x66F4;&#x597D;&#x7684;&#x4E3A;&#x975E;&#x8BA1;&#x7B97;&#x673A;&#x4E13;&#x4E1A;&#x7684;&#x4EBA;&#x58EB;&#x4F7F;&#x7528;&#xFF0C;&#x5BF9;&#x5185;&#x6838;&#x505A;&#x4E86;&#x4E00;&#x4E9B;&#x4FEE;&#x6539;&#xFF0C;&#x6240;&#x4EE5;&#x6E90;&#x7801;&#x4E0D;&#x9700;&#x8981;&#x4ECE;BBB&#x5B98;&#x7F51;&#x4E0B;&#x8F7D;&#x3002;&#x5728;&#x7F51;&#x4E0A;&#x770B;&#x5230;&#x5F88;&#x591A;BBB&#x6559;&#x7A0B;&#xFF0C;&#x4F7F;&#x7528;&#x4E86;&#x53EB;&#x505A;CAPE&#x7684;&#x6280;&#x672F;&#xFF0C;&#x4E5F;&#x662F;&#x6211;&#x4EEC;&#x4E0D;&#x4F7F;&#x7528;&#x7684;&#xFF0C;&#x76F8;&#x5173;&#x5185;&#x5BB9;&#x53C2;&#x8003;&#x4EF7;&#x503C;&#x4E0D;&#x5927;&#x3002;</p>
+<p>&#x5F00;&#x53D1;&#x677F;&#x4E0A;&#x5177;&#x6709;&#x4E00;&#x4E2A;TTL&#x7535;&#x5E73;&#x7684;&#x4E32;&#x53E3;&#x8C03;&#x8BD5;&#x53E3;&#xFF0C;&#x5BF9;&#x5E94;CPU&#x7684;UART0&#xFF0C;&#x662F;&#x8C03;&#x8BD5;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x6700;&#x91CD;&#x8981;&#x7684;&#x63A5;&#x53E3;&#x3002;&#x5176;&#x539F;&#x7406;&#x56FE;&#x5B9A;&#x4E49;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="images/3.bbb_uart_pin.png" alt="BBB-UART-PINOUT"></p>
+<p>&#x8BF7;&#x4F7F;&#x7528;USB&#x8F6C;<strong>TTL&#x7535;&#x5E73;</strong>&#x7684;&#x4E32;&#x53E3;&#x7EBF;&#xFF0C;&#x8FDE;&#x63A5;&#x8BA1;&#x7B97;&#x673A;&#x548C;BBB&#xFF0C;&#x6CE8;&#x610F;RX&#x3001;TX&#x4EA4;&#x53C9;&#x95EE;&#x9898;&#x3002;BBB&#x539F;&#x7248;&#x81EA;&#x5E26;&#x5B8C;&#x6574;&#x7684;&#x7CFB;&#x7EDF;&#xFF0C;&#x4E0A;&#x7535;&#x540E;&#x5E94;&#x80FD;&#x770B;&#x5230;&#x7CFB;&#x7EDF;&#x542F;&#x52A8;&#x4FE1;&#x606F;&#xFF0C;&#x5E76;&#x80FD;&#x5728;UBOOT&#x9636;&#x6BB5;&#x8F93;&#x5165;&#x56DE;&#x8F66;&#x8FDB;&#x5165;<code>=&gt;</code>&#x63D0;&#x793A;&#x7B26;&#x7684;UBOOT&#x63A7;&#x5236;&#x53F0;&#x3002;</p>
+<pre><code class="lang-sh">U-Boot SPL 2017.01-g340fb36f04 (Dec 23 2017 - 11:19:29)
+Trying to boot from MMC2
+Card did not respond to voltage select!
+** Bad device mmc 0 **
+Using default environment
+
+
+U-Boot 2017.01-g340fb36f04 (Dec 23 2017 - 11:19:29 -0500)
+
+CPU  : AM335X-GP rev 2.1
+Model: TI AM335x BeagleBone Black
+DRAM:  512 MiB
+NAND:  0 MiB
+MMC:   OMAP SD/MMC: 0, OMAP SD/MMC: 1
+MMC: no card present
+** Bad device mmc 0 **
+Using default environment
+
+&lt;ethaddr&gt; not set. Validating first E-fuse MAC
+Net:   cpsw, usb_ether
+Hit any key to stop autoboot:  0
+=&gt; &lt;&#x8F93;&#x5165;&#x56DE;&#x8F66;&#x53EF;&#x5728;&#x6B64;&#x5904;&#x6682;&#x505C;&gt;
+</code></pre>
+<h4 id="&#x7B2C;&#x4E00;&#x6B21;&#x542F;&#x52A8;&#x7CFB;&#x7EDF;">&#x7B2C;&#x4E00;&#x6B21;&#x542F;&#x52A8;&#x7CFB;&#x7EDF;</h4>
+<p>&#x8BF7;&#x6309;&#x5982;&#x4E0B;&#x6B65;&#x9AA4;&#x914D;&#x7F6E;UBOOT&#x53C2;&#x6570;&#xFF0C;&#x6267;&#x884C;<strong>&#x201C;&#x4ECE;TFTP&#x52A0;&#x8F7D;Linux&#x5185;&#x6838;&#x3001;DTB&#x6587;&#x4EF6;&#xFF0C;&#x518D;&#x901A;&#x8FC7;NFS&#x52A0;&#x8F7D;ROOTFS&#x201D;</strong>&#x7684;&#x64CD;&#x4F5C;&#x3002;</p>
+<p>UBOOT&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x8BBE;&#x7F6E;</p>
+<pre><code class="lang-sh"><span class="hljs-comment"># &#x865A;&#x62DF;&#x673A;&#x4E0E;&#x5F00;&#x53D1;&#x677F;&#x8FDE;&#x63A5;&#x7684;&#x7F51;&#x5361;&#x5730;&#x5740;&#x4E3A; 192.168.2.2</span>
+<span class="hljs-comment"># &#x8BF7;&#x5728;Ubuntu Linux&#x4E2D;&#x901A;&#x8FC7;netplan&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x6B63;&#x786E;&#x8BBE;&#x7F6E;IP&#x5730;&#x5740;&#xFF0C;&#x786E;&#x4FDD;&#x5F00;&#x53D1;&#x677F;&#x80FD;ping&#x901A;</span>
+<span class="hljs-comment"># &#x5F00;&#x53D1;&#x677F;&#x8BBE;&#x7F6E;IP&#x4E3A; 192.168.2.100</span>
+=&gt; setenv ipaddr 192.168.2.100
+=&gt; setenv serverip 192.168.2.2
+<span class="hljs-comment"># &#x4FDD;&#x5B58;&#x8BBE;&#x7F6E;</span>
+=&gt; saveenv
+<span class="hljs-comment"># &#x5C1D;&#x8BD5;&#x4ECE;UBOOT&#x53BB;ping&#x5F00;&#x53D1;&#x673A;</span>
+=&gt; ping 192.168.2.2
+
+<span class="hljs-comment"># &#x5F00;&#x59CB;&#x914D;&#x7F6E;&#x542F;&#x52A8;&#x547D;&#x4EE4;&#xFF0C;&#x4F7F;&#x7528;tftp&#x4ECE;Linux&#x4E3B;&#x673A;&#x4E0B;&#x8F7D;&#x5185;&#x6838;&#x548C;DTB&#x6587;&#x4EF6;&#xFF0C;&#x5E76;&#x542F;&#x52A8;&#x5185;&#x6838;</span>
+=&gt; setenv bootcmd <span class="hljs-string">&apos;tftp 82000000 zImage;tftp 88000000 am335x-boneblack.dtb;bootz 82000000 - 88000000&apos;</span>
+<span class="hljs-comment"># &#x5F00;&#x59CB;&#x914D;&#x7F6E;&#x542F;&#x52A8;&#x53C2;&#x6570;&#xFF0C;&#x6CE8;&#x610F;&#x4FEE;&#x6539;NFS&#x670D;&#x52A1;&#x5668;&#x7684;IP&#x3001;rootfs&#x5728;&#x5F00;&#x53D1;&#x673A;&#x4E0A;&#x7684;&#x8DEF;&#x5F84;/home/cet/rootfs</span>
+=&gt; setenv bootargs <span class="hljs-string">&apos;console=ttyO0,115200n8 root=/dev/nfs nfsroot=192.168.2.2:/home/cet/rootfs,nfsvers=3,tcp rw ip=192.168.2.100:192.168.2.2::255.255.255.0::eth0:off&apos;</span>
+</code></pre>
+<p>&#x5B8C;&#x6210;&#x4E0A;&#x8FF0;&#x914D;&#x7F6E;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5C1D;&#x8BD5;&#x7B2C;&#x4E00;&#x6B21;&#x542F;&#x52A8;Linux&#x7CFB;&#x7EDF;&#x4E86;&#x3002;<br>
+&#x8BF7;&#x6CE8;&#x610F;&#x4E0B;&#x9762;&#x8C03;&#x8BD5;&#x4FE1;&#x606F;&#x4E2D;&#x7684;&#x6CE8;&#x91CA;&#xFF0C;&#x6709;&#x51E0;&#x4E2A;&#x5173;&#x952E;&#x7684;&#x8282;&#x70B9;&#x9700;&#x8981;&#x91CD;&#x89C6;&#xFF0C;&#x5982;&#x679C;&#x5361;&#x5728;&#x8FD9;&#x4E9B;&#x73AF;&#x8282;&#xFF0C;&#x5E94;&#x77E5;&#x9053;&#x662F;&#x54EA;&#x90E8;&#x5206;&#x5BFC;&#x81F4;&#x7684;&#x95EE;&#x9898;&#x3002;</p>
+<pre><code class="lang-C">=&gt; boot
+
+####################
+U-Boot 2017.01-g340fb36f04 (Dec 23 2017 - 11:19:29 -0500)
+
+CPU  : AM335X-GP rev 2.1
+Model: TI AM335x BeagleBone Black
+DRAM:  512 MiB
+NAND:  0 MiB
+MMC:   OMAP SD/MMC: 0, OMAP SD/MMC: 1
+MMC: no card present
+** Bad device mmc 0 **
+Using default environment
+
+&lt;ethaddr&gt; not set. Validating first E-fuse MAC
+Net:   cpsw, usb_ether
+Hit any key to stop autoboot:  0
+=&gt; ,nfsvers=3,tcp&lt;INTERRUPT&gt;
+=&gt; setenv ipaddr 192.168.2.100
+=&gt; setenv serverip 192.168.2.2
+=&gt; setenv bootcmd &apos;tftp 82000000 zImage;tftp 88000000 am335x-boneblack.dtb;bootz 82000000 - 88000000&apos;
+=&gt; setenv bootargs &apos;console=ttyO0,115200n8 root=/dev/nfs nfsroot=192.168.2.2:/home/cet/rootfs,nfsvers=3,tcp rw ip=192.168.2.100:192.168.2.2::255.255.255.0::eth0:off&apos;
+=&gt; boot
+
+... &lt;&#x5173;&#x952E;&#x6B65;&#x9AA4;&#xFF1A;UBOOT&#x901A;&#x8FC7;TFTP&#x52A0;&#x8F7D;&#x5185;&#x6838;&#x955C;&#x50CF;&gt;
+
+link up on port 0, speed 100, full duplex
+Using cpsw device
+TFTP from server 192.168.2.2; our IP address is 192.168.2.100
+Filename &apos;zImage&apos;.
+Load address: 0x82000000
+Loading: #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         ##################
+         2.5 MiB/s
+done
+Bytes transferred = 4080128 (3e4200 hex)
+
+... &lt;&#x5173;&#x952E;&#x6B65;&#x9AA4;&#xFF1A;UBOOT&#x901A;&#x8FC7;TFTP&#x52A0;&#x8F7D;DTB&#x6587;&#x4EF6;&gt;
+
+link up on port 0, speed 100, full duplex
+Using cpsw device
+TFTP from server 192.168.2.2; our IP address is 192.168.2.100
+Filename &apos;am335x-boneblack.dtb&apos;.
+Load address: 0x88000000
+Loading: ###
+         3.9 MiB/s
+done
+Bytes transferred = 36717 (8f6d hex)
+## Flattened Device Tree blob at 88000000
+   Booting using the fdt blob at 0x88000000
+   Loading Device Tree to 8fff4000, end 8fffff6c ... OK
+
+... &lt;&#x5173;&#x952E;&#x6B65;&#x9AA4;&#xFF1A;Linux&#x5185;&#x6838;&#x5F00;&#x59CB;&#x542F;&#x52A8;&gt;
+
+Starting kernel ...
+
+[    0.000000] Booting Linux on physical CPU 0x0
+[    0.000000] Linux version 4.19.38-g4dae378bbe (oe-user@oe-host) (gcc version 8.3.0 (GNU Toolchain for the A-profile Architecture 8.3-2019.03 (arm-rel-8.36))) #1 PREEMPT Sun Jul 7 04:39:33 UTC 2019
+[    0.000000] CPU: ARMv7 Processor [413fc082] revision 2 (ARMv7), cr=10c5387d
+[    0.000000] CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing instruction cache
+[    0.000000] OF: fdt: Machine model: TI AM335x BeagleBone Black
+[    0.000000] Memory policy: Data cache writeback
+[    0.000000] efi: Getting EFI parameters from FDT:
+[    0.000000] efi: UEFI not found.
+[    0.000000] cma: Reserved 48 MiB at 0x9d000000
+[    0.000000] CPU: All CPU(s) started in SVC mode.
+[    0.000000] AM335X ES2.1 (sgx neon)
+
+... &lt;&#x5173;&#x952E;&#x6B65;&#x9AA4;&#xFF1A;&#x7F51;&#x7EDC;&#x521D;&#x59CB;&#x5316;&#xFF0C;NFS&#x52A0;&#x8F7D;ROOTFS&gt;
+
+[    3.770197] cpsw 4a100000.ethernet eth0: Link is Up - 100Mbps/Full - flow control rx/tx
+[    3.799153] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready
+[    3.829260] IP-Config: Complete:
+[    3.832527]      device=eth0, hwaddr=54:4a:16:e6:e4:2f, ipaddr=192.168.2.100, mask=255.255.255.0, gw=255.255.255.255
+[    3.843253]      host=192.168.2.100, domain=, nis-domain=(none)
+[    3.849277]      bootserver=192.168.2.2, rootserver=192.168.2.2, rootpath=
+[    3.856772] ALSA device list:
+[    3.860034]   No soundcards found.
+
+... &lt;&#x5173;&#x952E;&#x6B65;&#x9AA4;&#xFF1A;NFS&#x6302;&#x8F7D;&#x6B63;&#x786E;&#xFF0C;&#x8BF4;&#x660E;NFS Server&#x914D;&#x7F6E;&#x6B63;&#x786E;&gt;
+
+[    3.876819] VFS: Mounted root (nfs filesystem) on device 0:15.
+[    3.884269] devtmpfs: mounted
+...
+[    3.889220] Freeing unused kernel memory: 1024K
+[    3.894276] Run /sbin/init as init process
+[    4.390439] systemd[1]: System time before build time, advancing clock.
+...
+[  OK  ] Mounted /run/media/mmcblk1p2.
+[   44.903074] EXT4-fs (mmcblk1p4): mounted filesystem with ordered data mode. Opts: (null)
+[  OK  ] Mounted /run/media/mmcblk1p4.
+
+ _____                    _____           _         _
+|  _  |___ ___ ___ ___   |  _  |___ ___  |_|___ ___| |_
+|     |  _| .&apos;| . | . |  |   __|  _| . | | | -_|  _|  _|
+|__|__|_| |__,|_  |___|  |__|  |_| |___|_| |___|___|_|
+              |___|                    |___|
+
+Arago Project http://arago-project.org am335x-evm ttyS0
+
+Arago 2019.05 am335x-evm ttyS0
+
+am335x-evm login:
+
+... &lt;&#x5173;&#x952E;&#x6B65;&#x9AA4;&#xFF1A;&#x542F;&#x52A8;&#x5B8C;&#x6210;&gt;
+</code></pre>
+<p>&#x8F93;&#x5165;&#x7528;&#x6237;&#x540D;root&#xFF0C;&#x5BC6;&#x7801;&#x7A7A;&#xFF0C;&#x5373;&#x53EF;&#x767B;&#x9646;Linux Shell&#x63A7;&#x5236;&#x53F0;&#xFF0C;&#x6267;&#x884C;&#x5404;&#x79CD;&#x547D;&#x4EE4;&#x3002;<br>
+&#x5230;&#x6B64;&#xFF0C;&#x6211;&#x4EEC;&#x5DF2;&#x5B8C;&#x6210;&#x4E86;&#x57FA;&#x4E8E;BBB&#x5F00;&#x53D1;&#x677F;&#x7684;&#xFF0C;&#x7528;TI&#x5B98;&#x65B9;SDK&#x7684;&#x9884;&#x7F16;&#x8BD1;&#x955C;&#x50CF;&#x5B8C;&#x6210;&#x7684;&#x7B2C;&#x4E00;&#x6B21;Linux&#x7CFB;&#x7EDF;&#x542F;&#x52A8;&#x5DE5;&#x4F5C;&#xFF0C;&#x8868;&#x660E;&#x6211;&#x4EEC;&#x7684;&#x5185;&#x6838;&#x5F00;&#x53D1;&#x73AF;&#x5883;&#x5DE5;&#x4F5C;&#x6B63;&#x5E38;&#xFF0C;&#x7F51;&#x7EDC;&#x914D;&#x7F6E;&#x6B63;&#x786E;&#xFF0C;&#x5F00;&#x53D1;&#x677F;&#x72B6;&#x6001;&#x826F;&#x597D;&#xFF0C;&#x53EF;&#x4EE5;&#x7EE7;&#x7EED;&#x540E;&#x9762;&#x7684;&#x5B66;&#x4E60;&#x4E86;&#x3002;</p>
+<h3 id="uboot">UBOOT</h3>
+<p>&#x672C;&#x8BFE;&#x7A0B;&#x662F;Linux&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7684;&#x5F00;&#x53D1;&#x8BFE;&#x7A0B;&#xFF0C;&#x5BF9;&#x4E8E;&#x5E95;&#x5C42;&#x7684;Bootloader&#x90E8;&#x5206;&#x4E0D;&#x505A;&#x8FC7;&#x591A;&#x7684;&#x7814;&#x7A76;&#x3002;&#x53EA;&#x9700;&#x8981;&#x77E5;&#x9053;CPU&#x542F;&#x52A8;&#x540E;&#x9996;&#x5148;&#x52A0;&#x8F7D;&#x7684;&#x662F;UBOOT&#xFF0C;Linux&#x7CFB;&#x7EDF;&#x7531;UBOOT&#x5F15;&#x5BFC;&#x542F;&#x52A8;&#x5373;&#x53EF;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4E86;&#x89E3;&#x7684;&#x5185;&#x5BB9;&#x5305;&#x62EC;&#xFF1A;</p>
+<ul>
+<li>&#x5E38;&#x7528;&#x7684;&#x547D;&#x4EE4;<ul>
+<li>&#x5185;&#x5B58;&#x8BBF;&#x95EE;    md mm</li>
+<li>&#x7F51;&#x7EDC;&#x547D;&#x4EE4;    ping tftp</li>
+<li>&#x5E2E;&#x52A9;        help</li>
+<li>&#x73AF;&#x5883;&#x53D8;&#x91CF;    printenv setenv saveenv</li>
+<li>&#x542F;&#x52A8;        bootz bootm boot</li>
+</ul>
+</li>
+<li>&#x5E38;&#x7528;&#x7684;&#x73AF;&#x5883;&#x53D8;&#x91CF;<ul>
+<li>ipaddr</li>
+<li>serverip</li>
+<li>bootcmd</li>
+<li>bootargs</li>
+</ul>
+</li>
+</ul>
+<p>&#x5BF9;&#x4E0A;&#x8FF0;&#x547D;&#x4EE4;&#xFF0C;&#x6211;&#x4EEC;&#x901A;&#x8FC7;&#x81EA;&#x5DF1;&#x7B80;&#x5355;&#x7684;&#x5B66;&#x4E60;&#x5373;&#x53EF;&#x521D;&#x6B65;&#x4E86;&#x89E3;&#xFF0C;&#x518D;&#x901A;&#x8FC7;&#x4E0A;&#x9762;&#x6211;&#x4EEC;&#x7684;&#x5B9E;&#x9A8C;&#xFF0C;&#x57FA;&#x672C;&#x90FD;&#x80FD;&#x638C;&#x63E1;&#x3002;</p>
+<h3 id="&#x5B89;&#x88C5;&#x4EA4;&#x53C9;&#x7F16;&#x8BD1;&#x5668;">&#x5B89;&#x88C5;&#x4EA4;&#x53C9;&#x7F16;&#x8BD1;&#x5668;</h3>
+<p>AM335x&#x5904;&#x7406;&#x5668;&#x91C7;&#x7528;&#x7684;&#x662F;ARM Cortex-A8&#x5185;&#x6838;&#xFF0C;&#x5C5E;&#x4E8E;ARMv7&#x67B6;&#x6784;&#xFF0C;&#x5E26;NEON&#x6D6E;&#x70B9;&#x534F;&#x5904;&#x7406;&#x5668;&#x3002;&#x5BF9;&#x5E94;&#x7684;&#x4EA4;&#x53C9;&#x7F16;&#x8BD1;gcc&#x5DE5;&#x5177;&#x53EB;&#x505A;<code>arm-linux-gnueabihf-gcc</code>&#xFF0C;&#x5177;&#x4F53;&#x540D;&#x5B57;&#x4E3A;&#x4EC0;&#x4E48;&#x662F;&#x8FD9;&#x4E48;&#x957F;&#x7684;&#xFF0C;&#x6BCF;&#x4E00;&#x8282;&#x4EE3;&#x8868;&#x4EC0;&#x4E48;&#x542B;&#x4E49;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x81EA;&#x884C;&#x4E0A;&#x7F51;&#x641C;&#x7D22;&#x3002;</p>
+<p>TI&#x7684;SDK&#x4E2D;&#x5DF2;&#x7ECF;&#x96C6;&#x6210;&#x4E86;&#x7F16;&#x8BD1;&#x5668;&#xFF0C;&#x6211;&#x4EEC;&#x65E0;&#x9700;&#x7F51;&#x4E0A;&#x518D;&#x4E0B;&#x8F7D;&#xFF0C;&#x5B89;&#x88C5;&#x65B9;&#x6CD5;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-sh"><span class="hljs-built_in">cd</span> ~/sdk
+sudo ./linux-devkit.sh
+<span class="hljs-comment"># &#x63D0;&#x793A;&#x5B89;&#x88C5;&#x8DEF;&#x5F84;&#xFF0C;&#x4F7F;&#x7528;&#x9ED8;&#x8BA4;&#x7684;/usr/local/arago-2019.5&#x8F93;&#x5165;&#x56DE;&#x8F66;&#x5373;&#x53EF;</span>
+<span class="hljs-comment"># &#x5B89;&#x88C5;&#x811A;&#x672C;&#x4F1A;&#x81EA;&#x52A8;&#x89E3;&#x538B;&#x6E90;&#x6587;&#x4EF6;&#x5C06;&#x4EA4;&#x53C9;&#x7F16;&#x8BD1;&#x5668;&#x53CA;&#x76F8;&#x5173;&#x4F9D;&#x8D56;&#x5B89;&#x88C5;&#x81F3;&#x7CFB;&#x7EDF;&#x4E2D;</span>
+
+<span class="hljs-comment"># &#x6211;&#x4EEC;&#x5C06;&#x5B89;&#x88C5;&#x540E;arm-linux-gnueabihf-gcc&#x6240;&#x5728;&#x76EE;&#x5F55;&#x52A0;&#x5165;&#x7CFB;&#x7EDF;PATH&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x4E2D;</span>
+vi ~/.bashrc
+<span class="hljs-comment"># &#x5C06;&#x4E0B;&#x9762;&#x4E00;&#x884C;&#x5199;&#x5165;&#x6587;&#x4EF6;&#x672B;&#x5C3E;&#xFF0C;&#x6CE8;&#x610F;&#x4E0B;&#x9762;2019.5&#x6839;&#x636E;&#x5B9E;&#x9645;&#x8F93;&#x5165;</span>
+<span class="hljs-built_in">export</span> PATH=/usr/<span class="hljs-built_in">local</span>/arago-2019.05/sysroots/x86_64-arago-linux/usr/bin/:<span class="hljs-variable">$PATH</span>
+<span class="hljs-comment"># :wq&#x4FDD;&#x5B58;&#x9000;&#x51FA;</span>
+<span class="hljs-comment"># &#x91CD;&#x65B0;&#x5237;&#x65B0;&#x73AF;&#x5883;&#x53D8;&#x91CF;</span>
+<span class="hljs-built_in">source</span> ~/.bashrc
+
+<span class="hljs-comment"># &#x6D4B;&#x8BD5;&#x4EA4;&#x53C9;&#x7F16;&#x8BD1;&#x5668;&#x662F;&#x5426;&#x53EF;&#x7528;&#xFF0C;&#x901A;&#x8FC7;TAB&#x952E;&#x4EE3;&#x7801;&#x63D0;&#x793A;&#x5982;&#x679C;&#x6709;&#x81EA;&#x52A8;&#x63D0;&#x793A;&#x4E5F;&#x8BF4;&#x660E;PATH&#x751F;&#x6548;</span>
+arm-linux-gnueabihf-gcc --version
+</code></pre>
+<p>&#x6211;&#x4EEC;&#x901A;&#x8FC7;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;C&#x6587;&#x4EF6;&#x7684;&#x7F16;&#x8BD1;&#x6765;&#x786E;&#x8BA4;&#x7F16;&#x8BD1;&#x5668;&#x662F;&#x5426;&#x6B63;&#x5E38;&#x5DE5;&#x4F5C;</p>
+<pre><code class="lang-sh"><span class="hljs-comment"># &#x6D4B;&#x8BD5;&#x7F16;&#x8BD1;&#x6587;&#x4EF6;</span>
+<span class="hljs-built_in">cd</span> ~/c-test
+vi a.c
+<span class="hljs-comment">#&#x8F93;&#x5165;&#x4EE5;&#x4E0B;&#x4EE3;&#x7801;</span>
+        <span class="hljs-comment">#include &lt;stdio.h&gt;</span>
+        int main(void)
+        {
+                <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;hello world!&quot;</span>);
+                <span class="hljs-built_in">return</span> 0;
+        }
+<span class="hljs-comment"># &#x7F16;&#x8BD1;a.c&#x4EE3;&#x7801;&#xFF0C;&#x5982;&#x6CA1;&#x6709;&#x63D0;&#x793A;&#x8BF4;&#x660E;&#x6B63;&#x786E;&#x7F16;&#x8BD1;</span>
+arm-linux-gnueabihf-gcc -o a a.c
+<span class="hljs-comment"># &#x4F7F;&#x7528;file&#x89C2;&#x5BDF;&#x8F93;&#x51FA;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x6587;&#x4EF6;a&#x7684;&#x683C;&#x5F0F;</span>
+file a
+<span class="hljs-comment"># &#x4E0B;&#x9762;&#x7684;&#x4FE1;&#x606F;&#x8868;&#x660E;&#x4E8C;&#x8FDB;&#x5236;&#x6587;&#x4EF6;a&#x662F;ARM&#x67B6;&#x6784;&#xFF0C;EABI5&#x683C;&#x5F0F;&#xFF0C;&#x6B63;&#x5F0F;Cortex-A8&#x5BF9;&#x5E94;&#x7684;&#x683C;&#x5F0F;</span>
+<span class="hljs-comment"># &#x9A8C;&#x8BC1;&#x7F16;&#x8BD1;&#x5668;&#x5B89;&#x88C5;&#x6B63;&#x786E;</span>
+a: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), dynamically linked, interpreter /lib/ld-, <span class="hljs-keyword">for</span> GNU/Linux 3.2.0, with debug_info, not stripped
+</code></pre>
+<h3 id="linux&#x5185;&#x6838;&#x7F16;&#x8BD1;">Linux&#x5185;&#x6838;&#x7F16;&#x8BD1;</h3>
+<p>&#x5BF9;&#x4E8E;&#x4ECE;&#x4E8B;Linux&#x5E94;&#x7528;&#x5C42;&#x5F00;&#x53D1;&#x7684;&#x5DE5;&#x7A0B;&#x5E08;&#x6765;&#x8BF4;&#xFF0C;&#x5728;&#x6700;&#x521D;&#x5165;&#x95E8;&#x7684;&#x9636;&#x6BB5;&#x5E76;&#x4E0D;&#x9700;&#x8981;&#x5BF9;Linux&#x5185;&#x6838;&#x6709;&#x592A;&#x591A;&#x7684;&#x6DF1;&#x5165;&#x4E86;&#x89E3;&#xFF0C;&#x4F46;&#x81F3;&#x5C11;&#x6211;&#x4EEC;&#x8981;&#x638C;&#x63E1;Linux&#x5185;&#x6838;&#x662F;&#x5982;&#x4F55;&#x7F16;&#x8BD1;&#x7684;&#xFF0C;&#x5185;&#x6838;&#x7A76;&#x7ADF;&#x662F;&#x4EC0;&#x4E48;&#x7B49;&#x6982;&#x5FF5;&#x6027;&#x7684;&#x4E1C;&#x897F;&#x3002;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x901A;&#x8FC7;&#x624B;&#x52A8;&#x7F16;&#x8BD1;Linux&#x5185;&#x6838;&#x6E90;&#x7801;&#x3001;&#x5E76;&#x5C1D;&#x8BD5;&#x88C1;&#x526A;&#x6CA1;&#x7528;&#x5230;&#x7684;&#x4E00;&#x4E9B;&#x529F;&#x80FD;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x6765;&#x5927;&#x6982;&#x5B66;&#x4E60;&#x4E00;&#x4E0B;&#x5185;&#x6838;&#x5F00;&#x53D1;&#x7684;&#x6D41;&#x7A0B;&#x3002;</p>
+<pre><code class="lang-sh"><span class="hljs-comment"># &#x8FDB;&#x5165;SDK&#x4E2D;&#x7684;&#x6E90;&#x7801;&#x76EE;&#x5F55;</span>
+<span class="hljs-comment"># &#x6700;&#x65B0;SDK&#x7684;&#x5185;&#x6838;&#x6E90;&#x7801;&#x5DF2;&#x7ECF;&#x662F;4.19&#x7248;&#x672C;&#xFF0C;&#x975E;&#x5E38;&#x65B0;</span>
+<span class="hljs-comment"># &#x8BF7;&#x5584;&#x7528;TAB&#x952E;&#xFF0C;&#x907F;&#x514D;&#x624B;&#x52A8;&#x8F93;&#x5165;&#x5982;&#x6B64;&#x957F;&#x7684;&#x8DEF;&#x5F84;</span>
+<span class="hljs-built_in">cd</span> ~/sdk/board-support/linux-4.19.38+gitAUTOINC+4dae378bbe-g4dae378bbe/
+<span class="hljs-comment"># &#x4E3A;am335x bbb&#x751F;&#x6210;TI&#x4E13;&#x5C5E;&#x7684;&#x914D;&#x7F6E;</span>
+ti_config_fragments/defconfig_builder.sh
+<span class="hljs-comment"># &#x7A0B;&#x5E8F;&#x4F1A;&#x63D0;&#x793A;&#x8F93;&#x5165;123&#x9009;&#x62E9;&#x67B6;&#x6784;&#x3001;cpu&#x7C7B;&#x578B;&#x7B49;&#x4FE1;&#x606F;&#xFF0C;&#x6309;&#x63D0;&#x793A;&#x9009;&#x62E9;1/2/1&#x5373;&#x53EF;</span>
+<span class="hljs-comment"># 1. v7 ARM Architecture</span>
+<span class="hljs-comment"># 2. SDK_Release_Defconfigs</span>
+<span class="hljs-comment"># 1. ti_sdk_am3x_debug</span>
+
+<span class="hljs-comment"># &#x521D;&#x59CB;&#x5316;Linux&#x5185;&#x6838;&#x914D;&#x7F6E;</span>
+make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- ti_sdk_am3x_release_defconfig
+<span class="hljs-comment"># &#x5982;&#x6210;&#x529F;&#x4F1A;&#x63D0;&#x793A; configuration written to .config</span>
+
+<span class="hljs-comment"># &#x8FDB;&#x5165;&#x5185;&#x6838;&#x529F;&#x80FD;&#x56FE;&#x5F62;&#x5316;&#x914D;&#x7F6E;&#x754C;&#x9762;</span>
+make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- menuconfig
+<span class="hljs-comment"># &#x6B64;&#x65F6;&#x5E94;&#x80FD;&#x8FDB;&#x5165;&#x4E00;&#x4E2A;&#x914D;&#x7F6E;&#x753B;&#x9762;&#xFF0C;&#x901A;&#x8FC7;&#x4E0A;&#x4E0B;&#x79FB;&#x52A8;&#x5149;&#x6807;&#xFF0C;&#x5DE6;&#x53F3;&#x79FB;&#x52A8;&#x4E0B;&#x90E8;Select&#x548C;Exit&#x5149;&#x6807;</span>
+</code></pre>
+<p><img src="images/3.menuconfig.png" alt="menuconfig"></p>
+<p>&#x901A;&#x8FC7;menuconfig&#x754C;&#x9762;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5BF9;&#x5185;&#x6838;&#x7684;&#x529F;&#x80FD;&#x8FDB;&#x884C;&#x88C1;&#x526A;&#xFF0C;&#x79FB;&#x9664;&#x7528;&#x4E0D;&#x5230;&#x7684;&#x7279;&#x6027;&#x548C;&#x529F;&#x80FD;&#xFF0C;&#x6DFB;&#x52A0;&#x65B0;&#x7684;&#x786C;&#x4EF6;&#x9A71;&#x52A8;&#x3002;<br>&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5148;&#x7B80;&#x5355;&#x7684;&#x904D;&#x5386;&#x4E00;&#x4E0B;&#x6574;&#x4E2A;&#x83DC;&#x5355;&#x7ED3;&#x6784;&#xFF0C;&#x4E86;&#x89E3;&#x9A71;&#x52A8;&#x5728;&#x54EA;&#x91CC;&#x589E;&#x52A0;&#xFF0C;Linux&#x5185;&#x6838;&#x652F;&#x6301;&#x54EA;&#x4E9B;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7B49;&#x7B49;&#x3002;</p>
+<p>&#x5B8C;&#x6210;&#x540E;&#x6211;&#x4EEC;&#x6309;&#x65B9;&#x5411;&#x952E;&#x9009;&#x62E9;Exit&#x6309;&#x94AE;&#xFF0C;&#x9000;&#x51FA;menuconfig&#x754C;&#x9762;&#xFF0C;&#x7EE7;&#x7EED;&#x5185;&#x6838;&#x7F16;&#x8BD1;&#x3002;</p>
+<pre><code class="lang-sh"><span class="hljs-comment"># &#x7F16;&#x8BD1;&#x5185;&#x6838;</span>
+make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- zImage
+<span class="hljs-comment"># &#x7F16;&#x8BD1;DTB&#x6587;&#x4EF6;&#xFF08;&#x7528;&#x4E8E;&#x914D;&#x7F6E;&#x5B9E;&#x9645;&#x786C;&#x4EF6;&#x8FDE;&#x7EBF;&#x548C;&#x9A71;&#x52A8;&#x7684;&#x6620;&#x5C04;&#x5173;&#x7CFB;&#xFF09;</span>
+make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- am335x-boneblack.dtb
+<span class="hljs-comment"># &#x7F16;&#x8BD1;&#x5185;&#x6838;&#x6A21;&#x5757;&#xFF08;&#x76F8;&#x5F53;&#x4E8E;&#x989D;&#x5916;&#x7684;&#x4E00;&#x4E9B;&#x9A71;&#x52A8;&#x7A0B;&#x5E8F;&#xFF09;</span>
+make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- modules
+</code></pre>
+<p>&#x5B8C;&#x6210;&#x7F16;&#x8BD1;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x521A;&#x7F16;&#x8BD1;&#x7684;&#x7A0B;&#x5E8F;&#x590D;&#x5236;&#x5230;~/tftpboot&#x76EE;&#x5F55;&#xFF0C;&#x770B;&#x770B;&#x80FD;&#x5426;&#x542F;&#x52A8;&#x7CFB;&#x7EDF;&#x3002;</p>
+<pre><code class="lang-sh"><span class="hljs-comment"># &#x5C06;zImage&#x548C;dtb&#x6587;&#x4EF6;&#x590D;&#x5236;&#x5230;~/tftpboot</span>
+cp arch/arm/boot/zImage ~/tftpboot
+cp arch/arm/boot/dts/am335x-boneblack.dtb ~/tftpboot
+<span class="hljs-comment"># &#x5C06;&#x5185;&#x6838;&#x6A21;&#x5757;&#x5B89;&#x88C5;&#x81F3;ROOTFS&#xFF08;&#x8BF7;&#x6839;&#x636E;&#x81EA;&#x5DF1;rootfs&#x7684;&#x76EE;&#x5F55;&#x4FEE;&#x6539;&#x4E0B;&#x9762;&#x547D;&#x4EE4;&#xFF09;</span>
+sudo make ARCH=arm INSTALL_MOD_PATH=/home/cet/rootfs modules_install
+</code></pre>
+<p>&#x7CFB;&#x7EDF;&#x5982;&#x80FD;&#x6B63;&#x5E38;&#x542F;&#x52A8;&#xFF0C;&#x8BF4;&#x660E;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x7F16;&#x8BD1;&#x7684;&#x5185;&#x6838;&#x529F;&#x80FD;&#x6B63;&#x5E38;&#xFF0C;&#x6240;&#x6709;&#x6D41;&#x7A0B;&#x64CD;&#x4F5C;&#x65E0;&#x8BEF;&#x3002;</p>
+<h2 id="&#x9636;&#x6BB5;&#x6D4B;&#x8BD5;">&#x9636;&#x6BB5;&#x6D4B;&#x8BD5;</h2>
+<h3 id="&#x7EC3;&#x4E60;1&#xFF1A;&#x5B8C;&#x6210;linux&#x5185;&#x6838;&#x7684;&#x7F16;&#x8BD1;&#x548C;&#x542F;&#x52A8;">&#x7EC3;&#x4E60;1&#xFF1A;&#x5B8C;&#x6210;Linux&#x5185;&#x6838;&#x7684;&#x7F16;&#x8BD1;&#x548C;&#x542F;&#x52A8;</h3>
+<p>&#x6309;&#x7167;&#x672C;&#x7AE0;&#x7684;&#x4ECB;&#x7ECD;&#xFF0C;&#x9010;&#x4E2A;&#x6B65;&#x9AA4;&#x5730;&#x624B;&#x52A8;&#x64CD;&#x4F5C;&#x4E00;&#x904D;&#xFF0C;&#x5B8C;&#x6210;BBB&#x4E0A;&#x4F7F;&#x7528;TI SDK&#x63D0;&#x4F9B;&#x7684;Linux&#x5185;&#x6838;&#x542F;&#x52A8;&#x3002;</p>
+<h3 id="&#x7EC3;&#x4E60;2&#xFF1A;linux&#x5185;&#x6838;&#x88C1;&#x526A;">&#x7EC3;&#x4E60;2&#xFF1A;Linux&#x5185;&#x6838;&#x88C1;&#x526A;</h3>
+<p>&#x5C1D;&#x8BD5;&#x901A;&#x8FC7;menuconfig&#x8FDB;&#x884C;&#x5185;&#x6838;&#x88C1;&#x526A;&#x5DE5;&#x4F5C;&#xFF0C;&#x53EF;&#x4EE5;&#x5C1D;&#x8BD5;&#x5728;filesystem&#x90E8;&#x5206;&#x88C1;&#x526A;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x652F;&#x6301;&#xFF0C;&#x9664;&#x4E86;NFS&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x548C;EXT&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x5916;&#xFF0C;&#x5176;&#x4ED6;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x53EF;&#x4EE5;&#x5C1D;&#x8BD5;&#x5168;&#x90E8;&#x5220;&#x9664;&#x3002;</p>
+<p>&#x540C;&#x65F6;&#x8BF7;&#x5C1D;&#x8BD5;&#x5220;&#x9664;Device Driver&#x4E2D;&#x663E;&#x7136;&#x6211;&#x4EEC;&#x7528;&#x4E0D;&#x5230;&#x7684;&#x90E8;&#x5206;&#x9A71;&#x52A8;&#xFF0C;&#x5982;PCIe&#x3001;SATA&#x7B49;&#xFF0C;&#x5220;&#x9664;&#x4E00;&#x5C0F;&#x90E8;&#x5206;&#x540E;&#x91CD;&#x65B0;&#x7F16;&#x8BD1;&#x5185;&#x6838;&#xFF0C;&#x786E;&#x8BA4;&#x4FEE;&#x6539;&#x6B63;&#x786E;&#x540E;&#x518D;&#x8FDB;&#x4E00;&#x6B65;&#x88C1;&#x526A;&#xFF0C;&#x907F;&#x514D;&#x4E00;&#x6B21;&#x6027;&#x4FEE;&#x6539;&#x592A;&#x591A;&#x65E0;&#x6CD5;&#x542F;&#x52A8;&#x3002;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="2.Work_under_console.html" class="navigation navigation-prev " aria-label="Previous page: 用Linux系统命令行工作">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="4.Rootfs_basics.html" class="navigation navigation-next " aria-label="Next page: Linux rootfs基础">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Linux内核基础","level":"1.4","depth":1,"next":{"title":"Linux rootfs基础","level":"1.5","depth":1,"path":"4.Rootfs_basics.md","ref":"4.Rootfs_basics.md","articles":[]},"previous":{"title":"用Linux系统命令行工作","level":"1.3","depth":1,"path":"2.Work_under_console.md","ref":"2.Work_under_console.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"3.Kernel_basics.md","mtime":"2019-08-06T06:32:20.566Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-08-06T07:49:53.517Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
