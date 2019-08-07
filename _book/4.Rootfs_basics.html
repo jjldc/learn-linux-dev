@@ -193,20 +193,33 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9" >
+        <li class="chapter " data-level="1.9" data-path="8.Linux_IPC.html">
             
-                <span>
+                <a href="8.Linux_IPC.html">
             
                     
                     Linux IPC
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="1.10" >
+        <li class="chapter " data-level="1.10" data-path="9.Operating_hardware.html">
+            
+                <a href="9.Operating_hardware.html">
+            
+                    
+                    操作硬件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" >
             
                 <span>
             
@@ -219,7 +232,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11" >
+        <li class="chapter " data-level="1.12" >
             
                 <span>
             
@@ -232,7 +245,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12" >
+        <li class="chapter " data-level="1.13" >
             
                 <span>
             
@@ -245,7 +258,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.13" >
+        <li class="chapter " data-level="1.14" >
             
                 <span>
             
@@ -583,6 +596,12 @@ sudo mknod ~/rootfs_buildroot/dev/console c 5 1
 <span class="hljs-built_in">cd</span> ~
 rm ~/rootfs
 ln <span class="hljs-_">-s</span> ~/rootfs_buildroot ~/rootfs
+
+<span class="hljs-comment"># rootfs&#x91CC;&#x8FD8;&#x9700;&#x8981;&#x5B89;&#x88C5;Kernel&#x4E2D;&#x7684;&#x5185;&#x6838;&#x6A21;&#x5757;</span>
+<span class="hljs-comment"># &#x5C06;&#x5185;&#x6838;&#x6A21;&#x5757;&#x5B89;&#x88C5;&#x81F3;ROOTFS&#xFF08;&#x8BF7;&#x6839;&#x636E;&#x81EA;&#x5DF1;rootfs&#x7684;&#x76EE;&#x5F55;&#x4FEE;&#x6539;&#x4E0B;&#x9762;&#x547D;&#x4EE4;&#xFF09;</span>
+<span class="hljs-built_in">cd</span> ~/sdk/board-support/linux-4.19.38+gitAUTOINC+4dae378bbe-g4dae378bbe/
+sudo make ARCH=arm INSTALL_MOD_PATH=/home/cet/rootfs modules_install
+
 <span class="hljs-comment"># &#x66F4;&#x65B0;&#x5B8C;rootfs&#x6307;&#x5411;&#x4F4D;&#x7F6E;&#x540E;&#xFF0C;&#x9700;&#x8981;&#x66F4;&#x65B0;NFS Server</span>
 sudo exportfs -r
 </code></pre>
@@ -629,7 +648,7 @@ sudo exportfs -r
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Linux rootfs基础","level":"1.5","depth":1,"next":{"title":"Linux rootfs进阶","level":"1.6","depth":1,"path":"5.Rootfs_advanced.md","ref":"5.Rootfs_advanced.md","articles":[]},"previous":{"title":"Linux内核基础","level":"1.4","depth":1,"path":"3.Kernel_basics.md","ref":"3.Kernel_basics.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"4.Rootfs_basics.md","mtime":"2019-08-06T06:32:25.911Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-08-06T09:16:04.672Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Linux rootfs基础","level":"1.5","depth":1,"next":{"title":"Linux rootfs进阶","level":"1.6","depth":1,"path":"5.Rootfs_advanced.md","ref":"5.Rootfs_advanced.md","articles":[]},"previous":{"title":"Linux内核基础","level":"1.4","depth":1,"path":"3.Kernel_basics.md","ref":"3.Kernel_basics.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"4.Rootfs_basics.md","mtime":"2019-08-07T05:43:36.778Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-08-07T07:04:56.888Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
