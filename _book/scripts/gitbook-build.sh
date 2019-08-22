@@ -7,5 +7,10 @@ gitbook build
 
 chmod +x $base_dir/../scripts/gitbook-patch.sh
 $base_dir/../scripts/gitbook-patch.sh
+
+# zip
+cd $base_dir/../_book/
+zip -r $base_dir/../LearnLinuxDev.zip *
+
 cd $saved_dir
 
